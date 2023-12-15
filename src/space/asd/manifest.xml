@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AddIns>
+  <AddIn name="SpaceTest"
+         description="asd"
+         assembly="SpaceTest.dll"
+         typename="SpaceTest.Core"
+         host="SameAppDomain" />
+</AddIns>

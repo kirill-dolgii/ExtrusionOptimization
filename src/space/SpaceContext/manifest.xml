@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<AddIns>
+	<AddIn 
+		host="SameAppDomain" 
+		typename="SpaceContext.Core"
+		assembly="SpaceContext.dll" 
+		description="SpaceContext for Extrusion Optimization" 
+		name="SpaceContext"/>
+</AddIns>

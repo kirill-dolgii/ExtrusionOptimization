@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<customUI xmlns="">
+	<ribbon>
+		<tabs>
+			<tab label="AddIn" command="AddInTab" id="AddInTab">
+				<group label="SpaceContext Commands" id="AddInGroup">
+					<container id="AddInGroup.Container">
+						<button label="StartTest" command="StartTest" id="StartTest" style="imageandtext"/>
+					</container>
+				</group>
+			</tab>
+		</tabs>
+	</ribbon>
+</customUI>

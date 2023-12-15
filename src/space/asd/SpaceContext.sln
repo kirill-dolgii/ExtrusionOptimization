@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33103.184
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceContext", "SpaceContext.csproj", "{64F660FB-015E-4D3D-9990-B7611F24DC08}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{64F660FB-015E-4D3D-9990-B7611F24DC08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64F660FB-015E-4D3D-9990-B7611F24DC08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64F660FB-015E-4D3D-9990-B7611F24DC08}.Release|Any CPU.ActiveCfg = SpaceClaim By Manifest|Any CPU
+		{64F660FB-015E-4D3D-9990-B7611F24DC08}.Release|Any CPU.Build.0 = SpaceClaim By Manifest|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7BC146EB-537B-4CF6-BF2B-70C6151E7FCB}
+	EndGlobalSection
+EndGlobal
