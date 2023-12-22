@@ -11,7 +11,7 @@ public class WebSegment
     public CurveSegment RightSide { get; }
     public Point Center { get; }
     public Point SingularityPoint { get; }
-
+    
     public WebSegment(CurveSegment leftSide, CurveSegment rightSide)
     {
         LeftSide = leftSide;

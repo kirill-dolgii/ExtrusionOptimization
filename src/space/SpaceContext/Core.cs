@@ -33,8 +33,8 @@ public class Core : AddIn, IRibbonExtensibility, ICommandExtensibility, IExtensi
                 .Cast<OpenGeometryEngine.CurveSegment>()
                 .ToList();
 
-            var quadra = new Parametrization.Quadra(profCurves, webCurves);
-            var defaultParams = new PortParameters(0, 0, 0.005, 0.005, 0.002, 0.02);
+            var quadra = new Quadra(profCurves, webCurves);
+            var defaultParams = new PortParameters(0, 0, 0.005, 0.005, 0.005, 0.015, 0.025);
             var ports = quadra.Generate(Enumerable.Repeat(defaultParams, 4).ToList());
 
             var portLines = ports.SelectMany(port => port.Boundary.Select(ToScTrimmedCurve)).ToList();

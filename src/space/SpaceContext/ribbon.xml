@@ -6,7 +6,7 @@
 			<tab label="AddIn" command="AddInTab" id="AddInTab">
 				<group label="SpaceContext Commands" id="AddInGroup">
 					<container id="AddInGroup.Container">
-						<button label="StartTest" command="StartTest" id="StartTest" style="imageandtext"/>
+						<button label="StartTest" command="StartTest" id="StartTest" style="text"/>
 					</container>
 				</group>
 			</tab>

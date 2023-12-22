@@ -28,4 +28,10 @@ public class SimplePort : IPort
         Parameters = parameters;
         Boundary = coreSide.Concat(weldChamberSide).Concat(leftWebSide).Concat(rightWebSide).ToList();
     }
+   
+    public SimplePort(ICollection<CurveSegment> boundary, PortParameters parameters)
+    {
+        Boundary = boundary;
+        Parameters = parameters;
+    }
 }

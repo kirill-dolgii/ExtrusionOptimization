@@ -23,7 +23,7 @@ public class Quadra
         if (webs == null) throw new ArgumentNullException();
         if (webs.Count != 4) throw new ArgumentException();
         ProfileBox = Box.Unite(profile.Select(cs => cs.GetBoundingBox()));
-
+            
         var orderedWebs = webs.OrderBy(cs =>
         {
             var points = new[] { cs.StartPoint, cs.EndPoint };
