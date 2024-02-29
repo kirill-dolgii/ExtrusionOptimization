@@ -19,7 +19,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\..\..\Program Files\SpaceClaim 2023 R1\Addins\ExtrusionOptimization\</OutputPath>
+    <OutputPath>..\..\..\..\..\Program Files\SpaceClaim 2020 R1\Addins\SpaceContext\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -36,7 +36,8 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="OpenGeometryEngine">
+    <Reference Include="OpenGeometryEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\OpenGeometryEngine\src\main\bin\Debug\netstandard2.0\OpenGeometryEngine.dll</HintPath>
     </Reference>
     <Reference Include="SpaceClaim.Api.V19, Version=19.1.17946.0, Culture=neutral, PublicKeyToken=7210645d4d5e3a39, processorArchitecture=MSIL">

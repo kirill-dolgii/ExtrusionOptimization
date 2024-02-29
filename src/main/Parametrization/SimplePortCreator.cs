@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using OpenGeometryEngine;
+using OpenGeometryEngine.Fillet;
 using Parametrization.Extensions;
 
 namespace Parametrization.Parametrization;
@@ -18,7 +19,7 @@ public class SimplePortCreator : PortCreatorBase
     private Vector GetNormal(Line line, Point refPoint) 
         => (refPoint - line.ProjectPoint(refPoint).Point).Normalize();
 
-    public override IPort CreatePort(PortParameters portParameters)
+    public override IPort CreatePort(SimplePortParameters portParameters)
     {
         var coreOffsetDir = -GetNormal(CoreLine, WebSegment.SingularityPoint);
         var coreOffsetVec = coreOffsetDir * portParameters.CoreOffset;
@@ -36,10 +37,9 @@ public class SimplePortCreator : PortCreatorBase
         var rightWebOffset = Matrix.CreateTranslation(rightWebOffsetVec);
 
         var weldChamOffsetVec = coreOffsetDir * portParameters.WeldChamberOffset;
-        //var weldChamOffset = Matrix.CreateTranslation(weldChamOffsetVec);
 
-        var leftWebSide = WebSegment.LeftSide.CreateTransformedCopy(leftWebOffset);//CreateTransformedLine(WebSegment.LeftSide.GetGeometry<Line>(), leftWebOffset);
-        var rightWebSide = WebSegment.RightSide.CreateTransformedCopy(rightWebOffset);//CreateTransformedLine(WebSegment.RightSide.GetGeometry<Line>(), rightWebOffset);
+        var leftWebSide = WebSegment.LeftSide.CreateTransformedCopy(leftWebOffset);
+        var rightWebSide = WebSegment.RightSide.CreateTransformedCopy(rightWebOffset);
         
         var leftWebLine = CreateTransformedLine(WebSegment.LeftSide.GetGeometry<Line>(), leftWebOffset);
         var rightWebLine = CreateTransformedLine(WebSegment.RightSide.GetGeometry<Line>(), rightWebOffset);
@@ -52,19 +52,16 @@ public class SimplePortCreator : PortCreatorBase
         var leftWebWeldChamPnt = leftWebCornerPnt + coreOffsetDir * (portParameters.WeldChamberOffset - portParameters.CornerOffset);
         var rightWebWeldChamPnt = rightWebCornerPnt + coreOffsetDir * (portParameters.WeldChamberOffset - portParameters.CornerOffset);
 
-        var offsettedWebSegment = new WebSegment(leftWebSide, rightWebSide);
+        var offsetWebSegment = new WebSegment(leftWebSide, rightWebSide);
 
         var coreLine = CreateTransformedLine(CoreLine, coreOffset);
-        //var weldChamLine = CreateTransformedLine(CoreLine, weldChamOffset);
-        //var weldChamSide = LineSegment.Create(leftWebSide.Geometry.IntersectCurve(weldChamLine).Single().FirstEvaluation.Point,
-        //                                      rightWebSide.Geometry.IntersectCurve(weldChamLine).Single().FirstEvaluation.Point);
         
-        var coreSideLeftPnt = leftWebSide.Geometry.IntersectCurve(coreLine).Single().FirstEvaluation.Point;
-        var coreSideRightPnt = rightWebSide.Geometry.IntersectCurve(coreLine).Single().FirstEvaluation.Point;
+        var coreSideLeftPnt = leftWebSide.Curve.IntersectCurve(coreLine).Single().FirstEvaluation.Point;
+        var coreSideRightPnt = rightWebSide.Curve.IntersectCurve(coreLine).Single().FirstEvaluation.Point;
         var coreSideCenterPnt = (coreSideLeftPnt + coreSideRightPnt.Vector) / 2;
 
         var hasCoreSide = Vector.Dot(coreSideCenterPnt.Vector, coreOffsetDir) >
-                          Vector.Dot(offsettedWebSegment.SingularityPoint.Vector, coreOffsetDir);
+                          Vector.Dot(offsetWebSegment.SingularityPoint.Vector, coreOffsetDir);
 
         var portPoints = new List<Point>() { leftWebCornerPnt, leftWebWeldChamPnt, rightWebWeldChamPnt, rightWebCornerPnt };
 
@@ -76,12 +73,25 @@ public class SimplePortCreator : PortCreatorBase
         else portPoints.Add(WebSegment.SingularityPoint);
 
         var cornerLineSegments = portPoints.Pairs(closed: true)
-            .Select(pair => LineSegment.Create(pair.Item1, pair.Item2))
-            .Cast<CurveSegment>().ToList();
+            .Select(pair => new LineSegment(pair.Item1, pair.Item2))
+            .Cast<IBoundedCurve>()
+            .ToList();
 
-        return new SimplePort(cornerLineSegments, portParameters);
+        var ret = new List<IBoundedCurve>();
+        for (int i = 0; i < cornerLineSegments.Count; i++)
+        {
+            int j = (i + 1) % cornerLineSegments.Count;
+            var fillets = LineSegmentFillet.Fillet((LineSegment)cornerLineSegments[i], 
+                (LineSegment)cornerLineSegments[j], 
+                portParameters.CutterRadius);
+            cornerLineSegments[i] = fillets.Result.ElementAt(0);
+            cornerLineSegments[j] = fillets.Result.ElementAt(2);
+            ret.Add(fillets.Result.ElementAt(1));
+        }
+
+        return new SimplePort(ret.Concat(cornerLineSegments).ToList(), portParameters);
     }
 
     private Line CreateTransformedLine(Line line, Matrix matrix)
-        => Line.Create(matrix * line.Origin, line.Direction);
+        => new Line(matrix * line.Origin, line.Direction);
 }
