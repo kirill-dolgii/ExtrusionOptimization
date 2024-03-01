@@ -51,7 +51,7 @@ public sealed class Quadra
 
         _map = Creators.ToDictionary(c => c, c =>
         {
-            var left = ProfileRegion.Split(((SimplePortCreator)c).WebSegment.RightSide.Line).Second;
+            var left = ProfileRegion.Split(((SimplePortCreator)c).WebSegment.RightSide.Line).ElementAt(1);
             return (ICollection<PolyLineRegion>)left.SelectMany(region =>
                     region.Split(((SimplePortCreator)c).WebSegment.LeftSide.Line).First)
                 .ToArray();

@@ -4,15 +4,14 @@ using SpaceClaim.Api.V19;
 using SpaceClaim.Api.V19.Extensibility;
 using System.Linq;
 using OpenGeometryEngine;
-using OpenGeometryEngine.Collections;
 using OpenGeometryEngine.Regions;
 using Parametrization;
-using Parametrization.Parametrization;
 using SpaceClaim.Api.V19.Geometry;
 using Frame = OpenGeometryEngine.Frame;
 using ITrimmedCurve = SpaceClaim.Api.V19.Geometry.ITrimmedCurve;
 using LineSegment = OpenGeometryEngine.LineSegment;
 using Point = SpaceClaim.Api.V19.Geometry.Point;
+using System.Reflection;
 
 namespace SpaceContext;
 
@@ -20,7 +19,8 @@ public class Core : AddIn, IRibbonExtensibility, ICommandExtensibility, IExtensi
 {
     public string GetCustomUI()
     {
-        var fileInfo = new FileInfo("C:\\projects\\ExtrusionOptimization\\src\\space\\SpaceContext\\ribbon.xml");
+        var dirInfo = new FileInfo(Assembly.GetExecutingAssembly().Location).Directory;///Assembly.GetExecutingAssembly();
+        var fileInfo = dirInfo.GetFiles("ribbon.xml").Single();
         var ribbon = File.ReadAllText(fileInfo.FullName);
         return ribbon;
     }
