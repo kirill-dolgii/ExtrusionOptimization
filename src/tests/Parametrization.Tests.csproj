@@ -16,14 +16,4 @@
     <PackageReference Include="coverlet.collector" Version="3.1.2" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\main\Parametrization.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="OpenGeometryEngine">
-      <HintPath>..\..\..\..\OpenGeometryEngine\src\main\bin\Debug\netstandard2.0\OpenGeometryEngine.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
 </Project>

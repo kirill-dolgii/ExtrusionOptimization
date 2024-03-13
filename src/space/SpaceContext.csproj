@@ -40,6 +40,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\OpenGeometryEngine\src\main\bin\Debug\netstandard2.0\OpenGeometryEngine.dll</HintPath>
     </Reference>
+    <Reference Include="Parametrization, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\parametrization\bin\Debug\netstandard2.0\Parametrization.dll</HintPath>
+    </Reference>
     <Reference Include="SpaceClaim.Api.V19, Version=19.1.17946.0, Culture=neutral, PublicKeyToken=7210645d4d5e3a39, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\Program Files\SpaceClaim 2020 R1\SpaceClaim.Api.V19.DLL</HintPath>
@@ -57,12 +61,6 @@
     <Content Include="ribbon.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\main\Parametrization.csproj">
-      <Project>{7c6d199a-1013-4b0e-867f-33616ad42a53}</Project>
-      <Name>Parametrization</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
